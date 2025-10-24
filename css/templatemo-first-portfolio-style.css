@@ -11,12 +11,14 @@ https://templatemo.com/tm-578-first-portfolio
   CUSTOM PROPERTIES ( VARIABLES )             
 -----------------------------------------*/
 :root {
+  --ppges-blue-color:			  #02439b;	
+	
   --white-color:                  #ffffff;
   --primary-color:                #02449b;
   --secondary-color:              #f29c13;
   --section-bg-color:             #f9f9f9;
   --dark-color:                   #000000;
-  --p-color:                      #717275;
+  --p-color:                      #FFFFFF;
   --border-color:                 #e9eaeb;
   --featured-border-color:        #02449b;
 
@@ -309,7 +311,7 @@ strong {
 
 .is-sticky,
 .is-sticky .navbar .container {
-  background: var(--white-color);
+  background: var(--ppges-blue-color);
   box-shadow: 0 1rem 3rem rgb(0 0 0 / 18%);
 }
 
