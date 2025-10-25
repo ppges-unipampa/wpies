@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Programação do Evento</title>
+
+<style>
+  body {
+    font-family: "Inter", Arial, sans-serif;
+    background-color: #f9fafb;
+    margin: 0;
+    padding: 0;
+    color: #35371f;
+  }
+
+  section {
+    padding: 60px 20px;
+  }
+
+  h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #2d371f;
+  }
+
+  h2 span {
+    color: #02449b; /* azul */
+  }
+
+  p.subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #634b5c;
+    margin-bottom: 40px;
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    background-color: #e5e7eb;
+    border-radius: 9999px;
+    padding: 4px;
+    margin: 0 auto 30px;
+    max-width: 500px;
+  }
+
+  .tab {
+    flex: 1;
+    padding: 10px 0;
+    text-align: center;
+    font-weight: 600;
+    border-radius: 9999px;
+    background-color: transparent;
+    color: #634b54;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+  }
+
+  .tab.active {
+    background-color: #1439e0;
+    color: rgb(206, 228, 7);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  .schedule {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .event {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.2s ease;
+  }
+
+  .event:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .event-time {
+    text-align: center;
+    color: #3b47e6;
+    font-weight: bold;
+    min-width: 60px;
+  }
+
+  .event-time svg {
+    display: block;
+    margin: 0 auto 5px;
+  }
+
+  .event-info h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #111827;
+  }
+
+  .event-info p {
+    margin: 4px 0 0;
+    color: #4b5563;
+  }
+
+  /* Fade simples na troca de abas */
+  .fade {
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+</head>
+<body>
+
+<section id="schedule">
+  <h2>Nossa <span>Programação</span></h2>
+  <p class="subtitle">Confira nossa programação com horários das palestras e atividades.</p>
+
+  <div class="tabs">
+    <button class="tab active" data-day="1">04/12 - Quinta</button>
+    <button class="tab" data-day="2">05/12 - Sexta</button>
+    <button class="tab" data-day="3">06/12 - Sábado</button>
+  </div>
+
+  <div id="schedule-content" class="schedule fade"></div>
+</section>
+
+<script>
+  const scheduleData = {
+    1: [
+      { time: "18:30", title: "Abertura e Boas-vindas", speaker: "Comitê Organizador" },
+      { time: "19:30", title: "Coffe- Break: ", speaker: "Recepção: Café da manhã " },
+      { time: "20:30", title: "Painel: Gamificação como Ferramenta de Engajamento", speaker: "Dr. Ig Bittencourt e Dra. Taciana Falcão" },
+      { time: "21:30", title: "Workshop: Criando Interfaces Educacionais Inteligentes", speaker: "Dra. Patrícia Jaques" },
+      { time: "22:00", title: "Sessão de Perguntas e Respostas", speaker: "Palestrantes do Dia 1" }
+    ],
+    2: [
+      { time: "18:30", title: "Palestra: Realidade Virtual e Aumentada na Sala de Aula", speaker: "Dr. André Neves" },
+      { time: "19:30", title: "Sessão Técnica: Novas Tecnologias Educacionais", speaker: "Dr. Sean Siqueira" },
+      { time: "20:30", title: "Mesa Redonda: Desafios e Oportunidades na Educação Digital", speaker: "Todos os palestrantes" },
+      { time: "21:30", title: "Sessão de Networking Guiado", speaker: "Comitê Organizador" }
+    ],
+    3: [
+      { time: "09:00", title: "Sessões Técnicas", speaker: "Apresentação de trabalhos" },
+      { time: "10:30", title: "Sessões paralelas de Qualificaçao", speaker: "Alunos e apresentações" },
+      { time: "13:30", title: "Case Study: Implementação de Plataformas Adaptativas", speaker: "Prof. Marcos Almeida" },
+      { time: "15:00", title: "Debate: Personalização do Aprendizado com IA", speaker: "Dra. Patrícia Jaques e Dr. Cristiano Maciel" }
+    ],
+  };
+
+  const scheduleContainer = document.getElementById("schedule-content");
+  const tabs = document.querySelectorAll(".tab");
+
+  function renderSchedule(day) {
+    const events = scheduleData[day];
+    scheduleContainer.innerHTML = events
+      .map(event => `
+        <div class="event">
+          <div class="event-time">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#047857" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-clock">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            ${event.time}
+          </div>
+          <div class="event-info">
+            <h3>${event.title}</h3>
+            <p>${event.speaker}</p>
+          </div>
+        </div>
+      `)
+      .join("");
+    scheduleContainer.classList.remove("fade");
+    void scheduleContainer.offsetWidth; // reinicia animação
+    scheduleContainer.classList.add("fade");
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      tabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      const day = tab.dataset.day;
+      renderSchedule(day);
+    });
+  });
+
+  renderSchedule(1); // inicializa com o Dia 1
+</script>
+</body>
+</html>
