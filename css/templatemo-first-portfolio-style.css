@@ -11,9 +11,10 @@ https://templatemo.com/tm-578-first-portfolio
   CUSTOM PROPERTIES ( VARIABLES )             
 -----------------------------------------*/
 :root {
-  --ppges-blue-color:			  #02439b;	
-	
-  --white-color:                  #ffffff;
+  --ppges-blue-color:			  #02439b;
+  --ppges-orange-color:			  #f59a13;
+
+    --white-color:                  #ffffff;
   --primary-color:                #02449b;
   --secondary-color:              #f29c13;
   --section-bg-color:             #f9f9f9;
@@ -79,11 +80,13 @@ h1 {
 h2 {
   font-size: var(--h2-font-size);
   color: var(--secondary-color);
-  letter-spacing: -3px;
+  /*letter-spacing: -3px;*/
 }
 
 h3 {
   font-size: var(--h3-font-size);
+    color: #FFFFFF;
+    text-align: center;
 }
 
 h4 {
@@ -486,10 +489,11 @@ strong {
 .hero-title,
 .hero h2 {
   background: var(--white-color);
-  box-shadow: 0 1rem 3rem rgba(0,0,0,.175);
-  border-radius: var(--border-radius-large);
+  /*box-shadow: 0 1rem 3rem rgba(0,0,0,.175);*/
+  /*border-radius: var(--border-radius-large);*/
   display: inline-block;
-  padding: 8px 24px;
+  /*padding: 8px 24px;*/
+  font-size: 28px !important;
 }
 
 .hero-title {
@@ -1187,3 +1191,53 @@ strong {
   }
 }
 
+/* Estilos para o Carrossel (Carousel) */
+#workshopCarousel {
+    /* Cor de fundo branca e padding para destacar o conteúdo */
+    background-color: #ffffff;
+    padding: 20px;
+    color: var(--ppges-orange-color);
+
+    /* Bordas arredondadas (ajuste o valor de 'border-radius' se necessário) */
+    border-radius: 15px;
+
+    /* Adiciona uma sombra suave para dar profundidade (opcional, mas recomendado) */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para as legendas (carousel-caption) */
+#workshopCarousel .carousel-caption {
+    /* Cor de fundo semi-transparente para melhorar a leitura do texto */
+    background-color: rgba(255, 255, 255, 0.75);
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+
+    /* Garante que a legenda seja azul (o texto será aplicado abaixo) */
+    color: #02439b; /* O azul escuro do PPGES/UNIPAMPA que você usou no SVG */
+}
+
+.caroucel-text{
+    font-weight: 500;
+    color: var(--ppges-orange-color);
+}
+
+/* Cor do texto dentro das legendas */
+#workshopCarousel .carousel-caption h5,
+#workshopCarousel .carousel-caption p {
+    color: #02439b; /* Cor do texto azul */
+}
+
+/* Estilo para as imagens dentro do carrossel para garantir que ocupem o espaço corretamente */
+#workshopCarousel .carousel-item img {
+    /* A classe Bootstrap d-block e w-100 já ajudam, este é um reforço */
+    height: auto;
+    max-height: 400px; /* Limita a altura máxima para evitar que as imagens fiquem muito grandes */
+    object-fit: cover; /* Garante que a imagem cubra o espaço sem distorcer (pode cortar as bordas) */
+    border-radius: 10px; /* Bordas arredondadas para as imagens também */
+}
+
+/* Ajuste nos indicadores (pontos) para ficarem visíveis no fundo branco */
+#workshopCarousel .carousel-indicators button {
+    background-color: #02439b; /* Cor dos indicadores azul */
+}
